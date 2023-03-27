@@ -9,6 +9,7 @@ class CounterPage extends StatefulWidget {
 
 int countNumber = 0;
 int rangeOfCountNumber = 1;
+bool isVibration = true;
 Color bgColor = Colors.white;
 Color textColor = Colors.black;
 
@@ -46,6 +47,17 @@ class _CounterPageState extends State<CounterPage> {
     });
   }
 
+/*
+  void onVibration() {
+    setState(() {
+      isVibration = !isVibration;
+      if (isVibration) {
+        HapticFeedback.heavyImpact();
+        print('진동 된다!');
+      }
+    });
+  }
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +66,7 @@ class _CounterPageState extends State<CounterPage> {
         children: [
           Flexible(
             //빈 부분
-            flex: 1,
+            flex: 3,
             child: Container(decoration: BoxDecoration(color: bgColor)),
           ),
           Flexible(
@@ -74,7 +86,7 @@ class _CounterPageState extends State<CounterPage> {
           ),
           Flexible(
             //+1 버튼
-            flex: 7,
+            flex: 5,
             child: Column(
               children: [
                 IconButton(
@@ -88,7 +100,7 @@ class _CounterPageState extends State<CounterPage> {
           ),
           Flexible(
             //- 버튼
-            flex: 7,
+            flex: 5,
             child: Column(
               children: [
                 IconButton(
@@ -103,23 +115,37 @@ class _CounterPageState extends State<CounterPage> {
             ),
           ),
           Flexible(
-              //- 버튼
-              flex: 5,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+            //- 버튼
+            flex: 5,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: onChangeColor,
+                  color: textColor,
+                  icon: const Icon(Icons.swipe_rounded),
+                ),
+                IconButton(
+                  onPressed: onResetCount,
+                  color: textColor,
+                  icon: const Icon(Icons.refresh_outlined),
+                ),
+                /*
                   IconButton(
-                    onPressed: onChangeColor,
+                    onPressed: () {
+                      setState(() {
+                        isVibration = !isVibration;
+                        HapticFeedback.heavyImpact();
+                      });
+                    },
                     color: textColor,
-                    icon: const Icon(Icons.swipe_rounded),
-                  ),
-                  IconButton(
-                    onPressed: onResetCount,
-                    color: textColor,
-                    icon: const Icon(Icons.refresh_outlined),
-                  ),
-                ],
-              )),
+                    icon: isVibration
+                        ? const Icon(Icons.vibration_rounded)
+                        : const Icon(Icons.smartphone_rounded),
+                  ),*/
+              ],
+            ),
+          ),
         ],
       ),
     );
