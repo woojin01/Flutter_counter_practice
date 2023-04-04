@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:volume_controller/volume_controller.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
@@ -14,6 +15,8 @@ Color bgColor = Colors.white;
 Color textColor = Colors.black;
 
 class _CounterPageState extends State<CounterPage> {
+  int volumeNum = 0;
+
   void onAddCount() {
     //count 횟수 +1
     setState(() {
@@ -25,6 +28,12 @@ class _CounterPageState extends State<CounterPage> {
     //카운트 횟수 -1
     setState(() {
       countNumber = countNumber - rangeOfCountNumber; //-= 1
+    });
+  }
+
+  void onMute() {
+    setState(() {
+      VolumeController().setVolume(0);
     });
   }
 
@@ -47,6 +56,17 @@ class _CounterPageState extends State<CounterPage> {
     });
   }
 
+  @override
+  void initState() {
+    //VolumeController().muteVolume();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 /*
   void onVibration() {
     setState(() {
@@ -60,6 +80,8 @@ class _CounterPageState extends State<CounterPage> {
 */
   @override
   Widget build(BuildContext context) {
+    VolumeController().maxVolume;
+
     return Scaffold(
       backgroundColor: bgColor,
       body: Column(
@@ -87,6 +109,7 @@ class _CounterPageState extends State<CounterPage> {
           Flexible(
             //+1 버튼
             flex: 5,
+
             child: Column(
               children: [
                 IconButton(
@@ -130,6 +153,11 @@ class _CounterPageState extends State<CounterPage> {
                   color: textColor,
                   icon: const Icon(Icons.refresh_outlined),
                 ),
+                IconButton(
+                    onPressed: onMute,
+                    color: textColor,
+                    icon: const Icon(Icons.volume_off_rounded))
+
                 /*
                   IconButton(
                     onPressed: () {
