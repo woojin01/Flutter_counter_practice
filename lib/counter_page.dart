@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:volume_controller/volume_controller.dart';
 
+import 'package:flutter/services.dart';
+
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
 
@@ -21,6 +23,7 @@ class _CounterPageState extends State<CounterPage> {
     //count 횟수 +1
     setState(() {
       countNumber = countNumber + rangeOfCountNumber; //+= 1
+      HapticFeedback.mediumImpact();
     });
   }
 
@@ -28,12 +31,14 @@ class _CounterPageState extends State<CounterPage> {
     //카운트 횟수 -1
     setState(() {
       countNumber = countNumber - rangeOfCountNumber; //-= 1
+      HapticFeedback.mediumImpact();
     });
   }
 
   void onMute() {
     setState(() {
       VolumeController().setVolume(0);
+      HapticFeedback.mediumImpact();
     });
   }
 
@@ -47,12 +52,14 @@ class _CounterPageState extends State<CounterPage> {
         bgColor = Colors.white;
         textColor = Colors.black;
       }
+      HapticFeedback.mediumImpact();
     });
   }
 
   void onResetCount() {
     setState(() {
       countNumber = 0; //-= 1
+      HapticFeedback.mediumImpact();
     });
   }
 
